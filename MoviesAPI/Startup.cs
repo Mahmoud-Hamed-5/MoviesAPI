@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MoviesAPI.Configurations;
 using MoviesAPI.Filters;
 using MoviesAPI.Services;
 using System;
@@ -36,7 +37,8 @@ namespace MoviesAPI
             }).AddXmlDataContractSerializerFormatters();
 
             services.AddResponseCaching();
-            services.AddTransient<IRepository, InMemoryRepository>();
+            services.AddAutoMapper(typeof(MapperInitilizer));
+
             services.AddTransient<MyActionFilter>();
             services.AddTransient<IHostedService, WriteToFileHostedService>();
         }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MoviesAPI.Configurations.Entities;
 using MoviesAPI.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,16 @@ namespace MoviesAPI
     {
         public ApplicationDBContext([NotNullAttribute] DbContextOptions options) : base(options)
         {
+
         }
 
         public DbSet<Genre> Genres { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new GenresConfigurations());
+        }
     }
 }

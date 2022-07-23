@@ -4,12 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MoviesAPI.Entities
 {
-    public class Genre
+    public class Genre : IId
     {
-        public int Id { get; set; }
-
-        [StringLength(10)]
-        [FirstLetterUpperCase]
+        public int Id { get; set; }   
         public string Name { get; set; }
     }
 }
