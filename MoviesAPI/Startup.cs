@@ -39,6 +39,9 @@ namespace MoviesAPI
             services.AddResponseCaching();
             services.AddAutoMapper(typeof(MapperInitilizer));
 
+            services.AddTransient<IFileStorageService, InAppStorageService>();
+            services.AddHttpContextAccessor();
+
             services.AddTransient<MyActionFilter>();
             services.AddTransient<IHostedService, WriteToFileHostedService>();
         }
@@ -52,6 +55,8 @@ namespace MoviesAPI
             }
 
             app.UseHttpsRedirection();
+
+            app.UseStaticFiles();
 
             app.UseRouting();
 
