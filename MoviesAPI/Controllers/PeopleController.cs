@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -32,9 +33,9 @@ namespace MoviesAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPeople()
+        public async Task<IActionResult> GetPeople([FromQuery] PaginationDTO paginationDTO)
         {
-            var people = await GetAll<Person, PersonDTO>();
+            var people = await GetAll<Person, PersonDTO>(paginationDTO);
 
             return Ok(people);
         }
@@ -113,6 +114,15 @@ namespace MoviesAPI.Controllers
             await context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+
+        [HttpPatch("{id:int}")]
+        public async Task<IActionResult> Patch(int id, [FromBody] JsonPatchDocument<PersonPatchDTO> patchDocument)
+        {
+            var result = await Patch<PersonPatchDTO, Person>(id, patchDocument);
+
+            return result;
         }
 
         [HttpDelete("{id:int}")]

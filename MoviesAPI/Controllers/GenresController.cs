@@ -36,11 +36,11 @@ namespace MoviesAPI.Controllers
         [HttpGet]
         //[ResponseCache(Duration = 60)]
         [ServiceFilter(typeof(MyActionFilter))]
-        public async Task<IActionResult> GetGenres()
+        public async Task<IActionResult> GetGenres([FromQuery] PaginationDTO paginationDTO)
         {
             logger.LogInformation("Getting all Genres!");
 
-            var genres = await GetAll<Genre, GenreDTO>();
+            var genres = await GetAll<Genre, GenreDTO>(paginationDTO);
             return Ok(genres);
         }
 

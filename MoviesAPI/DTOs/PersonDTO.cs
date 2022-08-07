@@ -24,7 +24,7 @@ namespace MoviesAPI.DTOs
     }
 
 
-    public class PersonCreateDTO
+    public class PersonPatchDTO
     {
         [Required]
         [StringLength(100)]
@@ -33,7 +33,12 @@ namespace MoviesAPI.DTOs
 
         public string Biography { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }      
+
+    }
+
+    public class PersonCreateDTO : PersonPatchDTO
+    {     
 
         [FileSizeValidator(4)]
         [ContentTypeValidator(ContentTypeGroup.Image)]
